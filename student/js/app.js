@@ -4,9 +4,10 @@
 
 	var canvas = document.getElementById('drawCanvas');
 	var ctx = canvas.getContext('2d');
-	canvas.width = Math.min(document.documentElement.clientWidth, window.innerWidth || 300);
-	canvas.height = Math.min(document.documentElement.clientHeight, window.innerHeight || 300);
-	
+	//canvas.width = Math.min(document.documentElement.clientWidth, window.innerWidth || 300);
+	//canvas.height = Math.min(document.documentElement.clientHeight, window.innerHeight || 300);
+	canvas.width = 1080;
+	canvas.height = 720;
 
 
 	ctx.lineWidth = '3';
