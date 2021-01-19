@@ -6,6 +6,8 @@
 	var ctx = canvas.getContext('2d');
 	var color = document.querySelector(':checked').getAttribute('data-color');
 
+	canvas.width = Math.min(document.documentElement.clientWidth, window.innerWidth || 300);
+	canvas.height = Math.min(document.documentElement.clientHeight, window.innerHeight || 300);
 
 
 	ctx.strokeStyle = color;
@@ -20,7 +22,7 @@
 		baseImg.src = `https://uadoc.uacdn.net/live_class/CWFZUJ2N/1602882378I9PSYAHO.pdf?page=${page}&fm=webp&fit=clip&auto=compress&w=1080`;
 
 		baseImg.onload = function () {
-			ctx.drawImage(baseImg, 0, 0);
+			ctx.drawImage(baseImg, 0, 0, baseImg.width, baseImg.height, 0, 0, canvas.width, canvas.height);
 		}
 
 	}
@@ -49,7 +51,7 @@
 	/* PubNub */
 
 	var channel = 'draw';
-	
+
 
 	var pubnub = PUBNUB.init({
 		publish_key: 'pub-c-73c58b0d-5c27-4e4b-bb58-377024196a3c',
