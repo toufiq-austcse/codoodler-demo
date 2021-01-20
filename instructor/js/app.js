@@ -1,6 +1,8 @@
 (function () {
 	/* Canvas */
 	let currentPage = 1;
+	let pageHistory = [];
+	pageHistory.length = 50;
 
 	var canvas = document.getElementById('drawCanvas');
 	var ctx = canvas.getContext('2d');
@@ -10,22 +12,29 @@
 	//canvas.height = Math.min(document.documentElement.clientHeight, window.innerHeight || 300);
 	canvas.width = 1080;
 	canvas.height = 720;
-	console.log(canvas.width,canvas.height);
+	console.log(canvas.width, canvas.height);
 
 	ctx.strokeStyle = color;
 	ctx.lineWidth = '3';
 	ctx.lineCap = ctx.lineJoin = 'round';
 
 	let baseImg = new Image();
-
+	baseImg.crossOrigin = '*';  //<-- set here
 
 	/* load image */
 	function loadImage(page) {
-		baseImg.src = `https://uadoc.uacdn.net/live_class/CWFZUJ2N/1602882378I9PSYAHO.pdf?page=${page}&fm=webp&fit=clip&auto=compress&w=1080`;
+		
+		if (pageHistory[page]) {
+			console.log('history paise');
+			baseImg.src = pageHistory[page];
+		} else {
+			baseImg.src = `https://uadoc.uacdn.net/live_class/CWFZUJ2N/1602882378I9PSYAHO.pdf?page=${page}&fm=webp&fit=clip&auto=compress&w=1080`;
 
-		baseImg.onload = function () {
-			ctx.drawImage(baseImg, 0, 0, baseImg.width, baseImg.height, 0, 0, canvas.width, canvas.height);
+			baseImg.onload = function () {
+				ctx.drawImage(baseImg, 0, 0, baseImg.width, baseImg.height, 0, 0, canvas.width, canvas.height);
+			}
 		}
+
 
 	}
 
@@ -86,6 +95,7 @@
 	/* Draw on canvas */
 
 	function drawOnCanvas(color, plots) {
+
 		ctx.strokeStyle = color;
 		ctx.beginPath();
 		ctx.moveTo(plots[0].x, plots[0].y);
@@ -94,7 +104,10 @@
 			ctx.lineTo(plots[i].x, plots[i].y);
 		}
 		ctx.stroke();
+
 	}
+
+
 
 	function drawFromStream(message) {
 		if (message.page) {
@@ -150,14 +163,23 @@
 
 	document.addEventListener('keydown', e => {
 		if (e.key === 'ArrowRight') {
+
+			pageHistory[currentPage] = canvas.toDataURL();
+
 			loadImage(++currentPage);
+			console.log(pageHistory[currentPage]);
 			publish({
-				page: currentPage
+				page: currentPage,
+				key: 'ArrowRight'
 			});
 		} else if (e.key === 'ArrowLeft') {
+			pageHistory[currentPage] = canvas.toDataURL();
+
 			loadImage(--currentPage);
+
 			publish({
-				page: currentPage
+				page: currentPage,
+				key: 'ArrowLeft'
 			});
 		}
 	})

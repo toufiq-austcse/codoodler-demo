@@ -4,25 +4,30 @@
 
 	var canvas = document.getElementById('drawCanvas');
 	var ctx = canvas.getContext('2d');
-	//canvas.width = Math.min(document.documentElement.clientWidth, window.innerWidth || 300);
-	//canvas.height = Math.min(document.documentElement.clientHeight, window.innerHeight || 300);
-	canvas.width = 1080;
-	canvas.height = 720;
-
+	let pageHistory = [];
+	pageHistory.length = 50;
 
 	ctx.lineWidth = '3';
 	ctx.lineCap = ctx.lineJoin = 'round';
 
 	let baseImg = new Image();
-
+	baseImg.crossOrigin = '*';  //<-- set here
 
 	/* load image */
 	function loadImage(page) {
-		baseImg.src = `https://uadoc.uacdn.net/live_class/CWFZUJ2N/1602882378I9PSYAHO.pdf?page=${page}&fm=webp&fit=clip&auto=compress&w=1080`;
 
-		baseImg.onload = function () {
-			ctx.drawImage(baseImg, 0, 0, baseImg.width, baseImg.height, 0, 0, canvas.width, canvas.height);
+		if (pageHistory[page]) {
+			console.log('locading from history ', page);
+			baseImg.src = pageHistory[page];
+		} else {
+			console.log('locading from API');
+			baseImg.src = `https://uadoc.uacdn.net/live_class/CWFZUJ2N/1602882378I9PSYAHO.pdf?page=${page}&fm=webp&fit=clip&auto=compress&w=1080`;
+
+			baseImg.onload = function () {
+				ctx.drawImage(baseImg, 0, 0, baseImg.width, baseImg.height, 0, 0, canvas.width, canvas.height);
+			}
 		}
+
 
 	}
 
@@ -95,7 +100,18 @@
 
 	function drawFromStream(message) {
 		if (message.page) {
-			loadImage(message.page)
+
+			if (message.key === 'ArrowRight') {
+				pageHistory[message.page - 1] = canvas.toDataURL();
+				console.log(`page ${message.page - 1} history stored`);
+				currentPage = message.page;
+			} else if (message.key === 'ArrowLeft') {
+				pageHistory[message.page + 1] = canvas.toDataURL();
+				console.log(`page ${message.page + 1} history stored`);
+				currentPage = message.page;
+			}
+
+			loadImage(currentPage);
 		} else {
 			if (!message || message.plots.length < 1) return;
 			drawOnCanvas(message.color, message.plots);
