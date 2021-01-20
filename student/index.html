@@ -8,6 +8,7 @@
 	<title>Student</title>
 	<meta name="description" content="Draw">
 	<meta name="author" content="Tomomi Imura  @girlie_mac">
+	<script src="https://cdn.agora.io/sdk/release/AgoraRTCSDK-3.3.1.js"></script>
 	<link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -37,13 +38,13 @@
 			<input type="radio" name="color" id="color06" data-color="powderblue"> <label
 				for="color06"></label> -->
 		</section>
-		<!-- <section id="chat">
-			Enter Chat and press enter
-			<div><input id=input placeholder="message" /></div>
-			Chat Output
-			<div id=box></div>
-
-		</section> -->
+		 <section id="chat">
+			<h4>Local video</h4>
+			<div id="me"></div>
+			<h4>Remote video</h4>
+			<div id="remote-container">
+			</div>
+		</section>
 
 	</section>
 
@@ -58,7 +59,7 @@
 	<script src="//cdn.pubnub.com/pubnub-3.14.1.min.js"></script>
 	<script src="https://stephenlb.github.io/webrtc-sdk/js/webrtc.js"></script>
 	<script src="js/app.js"></script>
-	<script src="js/chat.js"></script>
+	<script src="js/video.js"></script>
 	
 
 </body>
