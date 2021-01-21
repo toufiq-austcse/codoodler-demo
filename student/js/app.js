@@ -4,6 +4,11 @@
 
 	var canvas = document.getElementById('drawCanvas');
 	var ctx = canvas.getContext('2d');
+
+	canvas.width = 1080;
+	canvas.height = 720;
+
+	
 	let pageHistory = [];
 	pageHistory.length = 50;
 
