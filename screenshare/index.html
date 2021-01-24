@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <script src="https://download.agora.io/sdk/release/AgoraRTC_N-4.2.1.js"></script>
+</head>
+
+<body>
+        <script>
+                AgoraRTC.createScreenVideoTrack({
+                        // Set the encoder configurations. For details, see the API description.
+                        encoderConfig: "1080p_1",
+                }).then(localScreenTrack => {
+                        /** ... **/
+                        console.log(localScreenTrack);
+                });
+        </script>
+</body>
+
+</html>

@@ -36,7 +36,7 @@
 
 	}
 
-	loadImage(currentPage);
+	//loadImage(currentPage);
 
 
 	/* Mouse and touch events */
@@ -92,15 +92,28 @@
 
 	/* Draw on canvas */
 
-	function drawOnCanvas(color, plots) {
-		ctx.strokeStyle = color;
-		ctx.beginPath();
-		ctx.moveTo(plots[0].x, plots[0].y);
-
-		for (var i = 1; i < plots.length; i++) {
-			ctx.lineTo(plots[i].x, plots[i].y);
+	function drawOnCanvas(color, plots,isEraserOn) {
+		if(!isEraserOn){
+			ctx.strokeStyle = color;
+			ctx.beginPath();
+			ctx.moveTo(plots[0].x, plots[0].y);
+	
+			for (var i = 1; i < plots.length; i++) {
+				ctx.lineTo(plots[i].x, plots[i].y);
+			}
+			ctx.stroke();
+		}else{
+			ctx.globalCompositeOperation = "destination-out";  
+			ctx.strokeStyle = "rgba(255,255,255,1)";
+			ctx.beginPath();
+			ctx.moveTo(plots[0].x, plots[0].y);
+	
+			for (var i = 1; i < plots.length; i++) {
+				ctx.lineTo(plots[i].x, plots[i].y);
+			}
+			ctx.stroke();
 		}
-		ctx.stroke();
+		
 	}
 
 	function drawFromStream(message) {
@@ -119,7 +132,7 @@
 			loadImage(currentPage);
 		} else {
 			if (!message || message.plots.length < 1) return;
-			drawOnCanvas(message.color, message.plots);
+			drawOnCanvas(message.color, message.plots,message.isEraserOn);
 		}
 
 	}
