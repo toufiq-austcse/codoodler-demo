@@ -8,8 +8,8 @@
 
 	//canvas.width = Math.min(document.documentElement.clientWidth, window.innerWidth || 300);
 	//canvas.height = Math.min(document.documentElement.clientHeight, window.innerHeight || 300);
-	canvas.width = 1080;
-	canvas.height = 720;
+	canvas.width = document.documentElement.clientWidth;
+	canvas.height = document.documentElement.clientHeight;
 	console.log(canvas.width,canvas.height);
 
 	ctx.strokeStyle = color;
@@ -55,7 +55,7 @@
 	var channel = 'draw';
 
 
-	var pubnub = PUBNUB.init({
+	var pubnub = new PubNub({
 		publish_key: 'pub-c-73c58b0d-5c27-4e4b-bb58-377024196a3c',
 		subscribe_key: 'sub-c-4baa524e-5888-11eb-95c0-3253a07b53cf',
 		leave_on_unload: true,
