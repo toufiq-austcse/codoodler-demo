@@ -17,16 +17,20 @@
 
 
 	/* load image */
-	function loadImage(page) {
-		baseImg.src = `https://uadoc.uacdn.net/live_class/CWFZUJ2N/1602882378I9PSYAHO.pdf?page=${page}&fm=webp&fit=clip&auto=compress&w=1080`;
+	function loadImage(message) {
+		console.log(message);
+		if(message.page){
+			baseImg.src = `https://uadoc.uacdn.net/live_class/CWFZUJ2N/1602882378I9PSYAHO.pdf?page=${message.page}&fm=webp&fit=clip&auto=compress&w=1080`;
 
-		baseImg.onload = function () {
-			ctx.drawImage(baseImg, 0, 0, baseImg.width, baseImg.height, 0, 0, canvas.width, canvas.height);
+			baseImg.onload = function () {
+				ctx.drawImage(baseImg, 0, 0, baseImg.width, baseImg.height, 0, 0, canvas.width, canvas.height);
+			}
 		}
+		
 
 	}
 
-	loadImage(currentPage);
+	loadImage({page:currentPage});
 
 
 	/* Mouse and touch events */
@@ -49,8 +53,8 @@
 
 	/* PubNub */
 
-	var channel = 'draw.600ea7b1b16f65a35e430df3';
-
+	var drawChannel = 'draw.600ea7b1b16f65a35e430df3';
+	var pageChannel = 'page.600ea7b1b16f65a35e430df3';
 
 	var pubnub = new PubNub({
 		publish_key: 'pub-c-73c58b0d-5c27-4e4b-bb58-377024196a3c',
@@ -73,6 +77,7 @@
 			msg = msg.message;
 		      //  console.log(msg);
 			drawFromStream(msg)
+			loadImage(msg);
 		},
 		presence: function(presenceEvent) {
 		    // This is where you handle presence. Not important for now :)
@@ -82,7 +87,7 @@
 	    console.log("Subscribing...");
                 
 	    pubnub.subscribe({
-		channels: [channel]
+		channels: [drawChannel,pageChannel]
 	    });
 
 	/* function publish(data) {
@@ -106,15 +111,12 @@
 	}
 
 	function drawFromStream(message) {
-		console.log(message);
-		if (message.page) {
-			loadImage(message.page)
-		} else {
-			if (!message || message.plots.length < 1) return;
+		if (message.color, message.plots) {
 			drawOnCanvas(message.color, message.plots);
-		}
+		} 
 
 	}
+	
 
 	// Get Older and Past Drawings!
 	if (drawHistory) {
