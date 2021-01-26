@@ -26,7 +26,7 @@ let client = AgoraRTC.createClient({
     codec: "vp8",
 });
 
-client.init("68e793c0d705413188f99d79329bf2cd");
+client.init("a120c43ee73c438788091c9dd173ce3b");
 
 // The value of role can be "host" or "audience".
 client.setClientRole("audience");
@@ -36,7 +36,7 @@ let handleError = function (err) {
     console.log("Error: ", err);
 };
 
-client.join("00668e793c0d705413188f99d79329bf2cdIAAd13UqzTKdWLvbT0qjmn/QkQ490nTbZabMtEH2bUafAzOxPzMAAAAAEABI+NBcFFIJYAEAAQATUglg", "10mstestlive", null, (uid) => {
+client.join("006a120c43ee73c438788091c9dd173ce3bIAAvl2W6TpPkwK7ZGOxzr0u0OhwKwmICiSCLdHl0B/e5QQ1FU2ffNA+3EACuJ1cbe/sQYAEAAQAAAAAA", "video.600ea7b1b16f65a35e430df3", 2558963, (uid) => {
     // Create a local stream
     let localStream = AgoraRTC.createStream({
         audio: true,

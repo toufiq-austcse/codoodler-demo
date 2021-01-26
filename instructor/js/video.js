@@ -36,7 +36,7 @@ let handleError = function (err) {
     console.log("Error: ", err);
 };
 
-client.join("006a120c43ee73c438788091c9dd173ce3bIABXVYtoY/MtlQNxc6m3SCrbs5/aBIz2b7Cj+OnE68Mz+TOxPzMAAAAAEAAH/Ychd8oPYAEAAQB3yg9g", "10mstestlive", null, (uid) => {
+client.join("006a120c43ee73c438788091c9dd173ce3bIAA1ft01pGGZzJYUjS3AnC/ZQ79mVMz5GEVCAjnD6EQlTg1FU2dQwGXHIgCixk8ustkQYAQAAQAAAAAAAgAAAAAAAwAAAAAABAAAAAAA", "video.600ea7b1b16f65a35e430df3", 2558966, (uid) => {
     // Create a local stream
     let localStream = AgoraRTC.createStream({
         audio: true,

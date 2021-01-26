@@ -8,8 +8,8 @@
 
 	//canvas.width = Math.min(document.documentElement.clientWidth, window.innerWidth || 300);
 	//canvas.height = Math.min(document.documentElement.clientHeight, window.innerHeight || 300);
-	canvas.width = document.documentElement.clientWidth;
-	canvas.height = document.documentElement.clientHeight;
+	canvas.width = 1080;
+	canvas.height = 720;
 	console.log(canvas.width,canvas.height);
 
 	ctx.strokeStyle = color;
@@ -52,14 +52,16 @@
 
 	/* PubNub */
 
-	var channel = 'draw';
+	var channel = 'draw.600ea7b1b16f65a35e430df3';
 
 
 	var pubnub = new PubNub({
 		publish_key: 'pub-c-73c58b0d-5c27-4e4b-bb58-377024196a3c',
 		subscribe_key: 'sub-c-4baa524e-5888-11eb-95c0-3253a07b53cf',
 		leave_on_unload: true,
-		ssl: document.location.protocol === "https:"
+		ssl: document.location.protocol === "https:",
+		uuid:"2558966",
+		authKey:"da177b989757c89d274598479b814257"
 	});
 
 	pubnub.subscribe({
@@ -77,9 +79,12 @@
 	});
 
 	function publish(data) {
+		console.log('publish');
 		pubnub.publish({
 			channel: channel,
 			message: data
+		},function(status,res){
+			//console.log(status,res);
 		});
 	}
 
@@ -97,6 +102,7 @@
 	}
 
 	function drawFromStream(message) {
+		console.log('dsfsd');
 		if (message.page) {
 			loadImage(message.page)
 		} else {

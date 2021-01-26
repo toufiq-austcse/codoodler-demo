@@ -3,6 +3,8 @@
                 publish_key: 'pub-c-73c58b0d-5c27-4e4b-bb58-377024196a3c',
                 subscribe_key: 'sub-c-4baa524e-5888-11eb-95c0-3253a07b53cf',
                 leave_on_unload: true,
+                uuid: "2558966",
+                authKey:"da177b989757c89d274598479b814257"
         });
         function $(id) {
                 return document.getElementById(id);
