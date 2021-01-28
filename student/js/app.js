@@ -81,6 +81,12 @@
 					p.addEventListener('transitionend', function () { p.classList.remove('anim'); }, false);
 				}
 			});
+			pubnub.subscribe({
+				channel: pageChannel,
+				callback: changePage,
+
+			});
+
 
 			pubnub.history(
 				{
@@ -144,7 +150,9 @@
 			}
 
 
-
+			function changePage(data) {
+				loadImage(data.page)
+			}
 
 			// we get the returned data
 		}
@@ -153,5 +161,5 @@
 	};
 
 
-
+	
 })();
