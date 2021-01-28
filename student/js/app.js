@@ -117,15 +117,32 @@
 
 			/* Draw on canvas */
 
-			function drawOnCanvas(color, plots) {
-				ctx.strokeStyle = color;
-				ctx.beginPath();
-				ctx.moveTo(plots[0].x, plots[0].y);
-
-				for (var i = 1; i < plots.length; i++) {
-					ctx.lineTo(plots[i].x, plots[i].y);
-				}
-				ctx.stroke();
+			function drawOnCanvas(color, plots,isEraser) {
+				if (isEraser) {
+					ctx.lineWidth = 50
+					ctx.globalCompositeOperation = "destination-out";
+					ctx.strokeStyle = "rgba(255,255,255,1)";
+					ctx.beginPath();
+					ctx.moveTo(plots[0].x, plots[0].y);
+				  
+					for (var i = 1; i < plots.length; i++) {
+					  ctx.lineTo(plots[i].x, plots[i].y);
+					}
+					ctx.stroke();
+				      } else {
+					ctx.strokeStyle = color
+					ctx.lineWidth = 5
+					ctx.globalCompositeOperation = "source-over";
+					ctx.beginPath();
+					ctx.moveTo(plots[0].x, plots[0].y);
+				  
+					for (var i = 1; i < plots.length; i++) {
+					  ctx.lineTo(plots[i].x, plots[i].y);
+					}
+					ctx.stroke();
+				      }
+				  
+				  
 			}
 
 			function drawFromStream(message) {
@@ -133,7 +150,8 @@
 					loadImage(message.page)
 				} else {
 					if (!message || message.plots.length < 1) return;
-					drawOnCanvas(message.color, message.plots);
+					let {color,plots,isEraser} = message;
+					drawOnCanvas(color, plots,isEraser);
 				}
 
 			}
