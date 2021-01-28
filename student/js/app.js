@@ -1,4 +1,5 @@
 (function () {
+	let slideImage = document.getElementById('slide');
 	let uuid = '2558966';
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", 'https://stage-live.10minuteschool.com/api/v1/class/admin/config', true);
@@ -34,7 +35,8 @@
 
 			/* load image */
 			function loadImage(page) {
-				baseImg.src = `https://uadoc.uacdn.net/live_class/CWFZUJ2N/1602882378I9PSYAHO.pdf?page=${page}&fm=webp&fit=clip&auto=compress&w=1080`;
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+				slideImage.src = `https://uadoc.uacdn.net/live_class/CWFZUJ2N/1602882378I9PSYAHO.pdf?page=${page}&fm=webp&fit=clip&auto=compress&w=1080`;
 
 				baseImg.onload = function () {
 					ctx.drawImage(baseImg, 0, 0, baseImg.width, baseImg.height, 0, 0, canvas.width, canvas.height);
