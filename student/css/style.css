@@ -54,6 +54,11 @@ footer {
 	bottom: 1em;
 	right: 1em;
 }
+#main{
+	position: fixed;
+	top: 0;
+	left: 0;
+}
 #drawCanvas {
   	-ms-touch-action: none;
   	position: absolute;

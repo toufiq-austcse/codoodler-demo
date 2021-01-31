@@ -2,7 +2,7 @@
 	let slideImage = document.getElementById('slide');
 	let uuid = '2558966';
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", 'https://stage-live.10minuteschool.com/api/v1/class/admin/config', true);
+	xhr.open("POST", 'https://stage-live.10minuteschool.com/api/v1/class/client/config', true);
 	xhr.setRequestHeader('Content-Type', 'application/json');
 	xhr.send(JSON.stringify({
 		class_id: "1",
